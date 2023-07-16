@@ -1,0 +1,170 @@
+/* 실제 보이는 것과 수치를 일치화 하기 위해 전체 적용 */
+* {
+    box-sizing: border-box;
+}
+
+/* 바디 양옆 빈칸삭제 및 폰트변경 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 링크된 문장 자동 밑줄 제거 밑 기본 색깔변경 */
+a:link, a:visited{
+    text-decoration: none;
+    color: black;
+}
+/* 모든 부분 너비 설정해서 중앙으로 모아주기 */
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+/* navigation bar */
+
+/* 네비게이션 바 부분 높이, 색깔, 글자 높이 */
+nav{
+    height: 80px;
+    background-color: #dc143c;
+    line-height: 80px;
+    /* 네비게이션 바와 px가 같으므로 중앙으로 */
+}
+
+/* nav요소 뒤에 콘텐츠는 없고 블록형태의 가상의 자식요소를 생성 */
+/* float된 nav밑 공간을 가상의 요소로 채워주어 다른게 올라오는걸 */
+/* 방지 float를 쓴 이후에는 써줘야함 */
+nav::after{
+    content:"";
+    display: block;
+    clear: both;
+}
+/* block요소를 병렬로 배치하기 위해서 float하여 좌측으로 배치 */
+/* 원하는 위치로 배치하기위해 마진0 */
+.nav-logo{
+    font-size: 30px;
+    float: left;
+    margin: 0;
+}
+/* 메뉴도 띄워서 우측배치 */
+.nav-menu{
+    float: right;
+}
+/* 리스트 앞에 점 삭제, 원하는 곳으로 배치하기위해 마진0 */
+.nav-btn{
+    list-style-type: none;
+    margin: 0;
+}
+/* ul내의 nav-btn내의 모든 li 설정 */
+/* 병렬배치하기 위해서 float, 서로 거리벌리기 위해 좌측마진 */
+ul.nav-btn > li {
+    float: left;
+    margin-left: 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* header */
+.hd{
+    position: relative;
+    /* 부모요소에서 벗어나 자유롭게 배치가능
+    즉 h2, p 가 header의 div랑 겹쳐서 배치가능
+    (그림위에 글자 배치가능) */
+    height: 600px;
+    text-align: center;
+    /* 글자 중앙으로 정렬 */
+}
+
+.hd-title{
+    font-size: 80px;
+    margin-top: 0;
+    /* nav와 사이의 빈공간 없애기 */
+    margin-bottom: 20px;
+    /* title과 content 사이 거리 벌리기 */
+    padding-top: 200px;
+    /* 패딩은 빈공간이므로 레이아웃을 유지하면서 위치를 바꿀 수 있다 */
+}
+
+.hd-content {
+    font-size: 20px;
+}
+
+/* 외워야되는 부분 복붙해라 */
+/* hd 앞에 가상의 컨텐츠0, 블록형태의 이미지를 가지는 
+자식요소를 배치 */
+/* hd를 100%채우고 위치 중앙 불투명하게 이미지 반복x*/
+.hd::before{
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    /* 1이면 불투명, 불투명하면 이미지가 텍스트를 잡아먹어버린다 */
+    background-image: url(./header-img.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+/* 자식요소에 absolute를 주면 가장 가까운 위치에 있는 
+조상 요소를 기준으로 배치, 조상요소 중 position이 없으면 
+window viewport를 기준으로 한다 */
+/* 즉, contaioner에 relative를 주면 가상의 before 가상
+자식요소는 contaioner를 기준으로 절대좌표를 가짐 */
+.hd .container{
+    position: relative;
+    /* relative: 원래 위치를 기준으로 배치 
+    위치를 그대로 유지시키기 좋음
+    이동해도 다른 요소에 영향을 주지 않음 */
+    color: black;
+}
+
+/* section */
+.sec {
+    text-align: center;
+    padding: 100px 0;
+    /* 상하 100px 좌우 0 */
+    background-color: #ffe4c4;
+}
+
+.sec article{
+    float: left;
+    /* 병렬배치를 위해 float */
+    width: 300px;
+    margin-right: 30px;
+/* 전체 너비가 360인데 간격 2개 넣고 맞추기 위해 300+30*2 */
+}
+
+.sec article:last-child{
+    margin-right: 0;
+}
+/* 맨 오른쪽 애만 오른쪽 빈칸없게 만들기 위해 */
+
+.sec article img {
+    width: 100%;
+    height: auto;
+    /* ㄴ 왜하는 걸까 */
+}
+
+.card-img{
+    overflow: hidden;
+    /* 넘치는부분 숨기기 */
+    width: 300px;
+    height: 300px;
+}
+
+.sec::after{
+    content: "";
+    display: block;
+    clear:both;
+}
+
+/* footer */
+.ft{
+    padding: 15px;
+    text-align: center;
+    background-color: #f12850;
+    font-weight: bold;
+}
